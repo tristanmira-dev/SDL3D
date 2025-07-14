@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 
 #include "Graphics.hpp"
+#include "Shapes.hpp"
 
 int main(int argc, char **argv) {
 
@@ -19,13 +20,12 @@ int main(int argc, char **argv) {
 			}
 		}
 		graphics.clearPixelBuff(0);
-		for (int i = 0; i < 800; ++i) {
-			graphics.putPixel(i, 300, 0xFF0000FF);
-		}
+		
+		RenderTools::drawLine(graphics, Linear::Vector2D{30.f, 50.f}, Linear::Vector2D{ 60.f, 150.f }, 0xFF0000FF);
+
 		
 		graphics.drawFromPixelBuff();
 
-		SDL_RenderPresent(graphics.getRenderer());
 	}
 	
 

@@ -13,18 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Render">
+      <UniqueIdentifier>{8e9340dc-63c0-4924-9a7b-e3758de1ce17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Render">
+      <UniqueIdentifier>{5e8e0e93-4aa6-4946-90cc-9b5bbc61b013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Linear_Algebra">
+      <UniqueIdentifier>{36521c2c-3001-4861-950e-41d70afdfc4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Linear_Algebra">
+      <UniqueIdentifier>{ddf12dea-acb0-4e52-8d95-701bc5bd09ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math_Functions">
+      <UniqueIdentifier>{0147fdf7-892f-40b6-9eb6-b7f874bb9937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math_Functions">
+      <UniqueIdentifier>{9f743803-2c91-479c-93b8-bde741590067}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphics.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Source Files\Linear_Algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Source Files\Math_Functions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes.hpp">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.hpp">
+      <Filter>Header Files\Linear_Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.hpp">
+      <Filter>Header Files\Math_Functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

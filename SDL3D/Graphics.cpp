@@ -5,14 +5,14 @@
 namespace RenderTools {
 
 	/*INIT WINDOW, RENDERER, PIXEL BUFFER/TEXTURE*/
-	Graphics::Graphics(int width, int height, char const *windowName) : width{ width }, height{ height }, pixelBuffer{ new Uint32[width * height] } {
-		
+	Graphics::Graphics(int width, int height, char const* windowName) : width{ width }, height{ height }, pixelBuffer{ new Uint32[width * height] } {
+
 		SDL_CreateWindowAndRenderer(windowName, width, height, SDL_WINDOW_OPENGL, &window, &renderer);
 
 		pixelTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, width, height);
 
 		std::fill(pixelBuffer, pixelBuffer + width * height, 0);
-	
+
 	}
 
 	Graphics::~Graphics() {
@@ -30,17 +30,19 @@ namespace RenderTools {
 
 	void Graphics::putPixel(int x, int y, Uint32 pixelValue) {
 		pixelBuffer[y * width + x] = pixelValue;
-	
+
 	}
 
-	void Graphics::clearPixelBuff(Uint32 const &clearColor) {
-		std::memset(pixelBuffer, 0, sizeof(*pixelBuffer) * width * height);
+	void Graphics::clearPixelBuff(Uint32 const& clearColor) {
+		std::memset(pixelBuffer, clearColor, sizeof(*pixelBuffer) * width * height);
 	}
 
 	void Graphics::drawFromPixelBuff() {
 		/*USE LOCK TEXTURE INSTEAD*/
 		SDL_UpdateTexture(pixelTexture, nullptr, pixelBuffer, sizeof(*pixelBuffer) * width);
 		SDL_RenderTexture(renderer, pixelTexture, nullptr, nullptr);
+
+		SDL_RenderPresent(renderer);
 	}
 
 
