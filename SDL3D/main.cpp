@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 		}
 		graphics.clearPixelBuff(0);
 		
-		RenderTools::drawLine(graphics, Linear::Vector2D{30.f, 50.f}, Linear::Vector2D{ 60.f, 150.f }, 0xFF0000FF);
+		RenderTools::drawLine(graphics, Linear::Vector2D{400.f, 350.f}, Linear::Vector2D{ 400.f, 300.f }, 0xFF0000FF);
 
 		
 		graphics.drawFromPixelBuff();
