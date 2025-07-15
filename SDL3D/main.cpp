@@ -4,6 +4,8 @@
 #include "Graphics.hpp"
 #include "Shapes.hpp"
 
+
+
 int main(int argc, char **argv) {
 
 	RenderTools::Graphics graphics(800, 600, "WINDOW");
@@ -20,9 +22,11 @@ int main(int argc, char **argv) {
 			}
 		}
 		graphics.clearPixelBuff(0);
-		
-		RenderTools::drawLine(graphics, Linear::Vector2D{400.f, 350.f}, Linear::Vector2D{ 400.f, 300.f }, 0xFF0000FF);
 
+		RenderTools::drawLine(graphics, Linear::Vector2D{400.f, 350.f}, Linear::Vector2D{ 400.f, 300.f }, 0x00FF00FF);
+		RenderTools::drawWireFrameTriangle(graphics, Linear::Vector2D{ 0.f, 0.f }, Linear::Vector2D{ 400.f, 0.f },
+			Linear::Vector2D{ 0.f, 599.f },
+			0x0000FFFF);
 		
 		graphics.drawFromPixelBuff();
 

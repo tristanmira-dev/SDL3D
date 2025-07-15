@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <cstring>
 
+/*TODO LOOK INTO FIXING THE ENDIAN-NESS FOR COLOR*/
+
 namespace RenderTools {
 
 	/*INIT WINDOW, RENDERER, PIXEL BUFFER/TEXTURE*/
@@ -9,7 +11,7 @@ namespace RenderTools {
 
 		SDL_CreateWindowAndRenderer(windowName, width, height, SDL_WINDOW_OPENGL, &window, &renderer);
 
-		pixelTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, width, height);
+		pixelTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, width, height);
 
 		std::fill(pixelBuffer, pixelBuffer + width * height, 0);
 

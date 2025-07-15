@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Math_Functions">
       <UniqueIdentifier>{9f743803-2c91-479c-93b8-bde741590067}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Geometry">
+      <UniqueIdentifier>{34abd6e3-1f7f-4bda-957f-4e2ccef8b0a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Geometry">
+      <UniqueIdentifier>{f3a059d1-1314-436f-b90a-c3fa58e0c3dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +54,9 @@
     <ClCompile Include="Math.cpp">
       <Filter>Source Files\Math_Functions</Filter>
     </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.hpp">
@@ -61,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Math.hpp">
       <Filter>Header Files\Math_Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.hpp">
+      <Filter>Header Files\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

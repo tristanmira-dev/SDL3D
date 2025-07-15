@@ -40,4 +40,9 @@ namespace RenderTools {
 
 
 	}
+	void drawWireFrameTriangle(RenderTools::Graphics& renderer, Linear::Vector2D const& p0, Linear::Vector2D const& p1, Linear::Vector2D const& p2, Uint32 const& color) {
+		drawLine(renderer, p0, p1, color);
+		drawLine(renderer, p1, p2, color);
+		drawLine(renderer, p2, p0, color);
+	}
 }
