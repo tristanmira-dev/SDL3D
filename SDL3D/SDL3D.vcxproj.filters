@@ -57,6 +57,9 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Source Files\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="Vector3D.cpp">
+      <Filter>Source Files\Linear_Algebra</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.hpp">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Vertex.hpp">
       <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.hpp">
+      <Filter>Header Files\Linear_Algebra</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

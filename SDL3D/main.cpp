@@ -3,12 +3,12 @@
 
 #include "Graphics.hpp"
 #include "Shapes.hpp"
-
+#include "Vertex.hpp"
 
 
 int main(int argc, char **argv) {
 
-	RenderTools::Graphics graphics(800, 600, "WINDOW");
+	RenderTools::Graphics graphics(1000, 600, "WINDOW");
 	SDL_Event event{};
 
 	/*GAME LOOP*/
@@ -23,10 +23,13 @@ int main(int argc, char **argv) {
 		}
 		graphics.clearPixelBuff(0);
 
+		Geometry::Triangle triangle(Geometry::VertexData{ Linear::Vector3D {0.f, 0.f} },
+			Geometry::VertexData{ Linear::Vector3D {400.f, 0.f} },
+			Geometry::VertexData{ Linear::Vector3D {0.f, 599.f} },
+			Linear::Vector3D{});
+
 		RenderTools::drawLine(graphics, Linear::Vector2D{400.f, 350.f}, Linear::Vector2D{ 400.f, 300.f }, 0x00FF00FF);
-		RenderTools::drawWireFrameTriangle(graphics, Linear::Vector2D{ 0.f, 0.f }, Linear::Vector2D{ 400.f, 0.f },
-			Linear::Vector2D{ 0.f, 599.f },
-			0x0000FFFF);
+		RenderTools::drawWireFrameTriangle(graphics, triangle, 0x0000FFFF);
 		
 		graphics.drawFromPixelBuff();
 
