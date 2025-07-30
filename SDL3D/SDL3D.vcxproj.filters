@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Geometry">
       <UniqueIdentifier>{f3a059d1-1314-436f-b90a-c3fa58e0c3dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{84b8dd25-99c8-4114-9544-80fecf887aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{8e0afae2-fc66-45a1-b534-9dad18c2c908}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,6 +66,9 @@
     <ClCompile Include="Vector3D.cpp">
       <Filter>Source Files\Linear_Algebra</Filter>
     </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.hpp">
@@ -79,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Vector3D.hpp">
       <Filter>Header Files\Linear_Algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

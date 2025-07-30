@@ -5,7 +5,8 @@
 
 namespace Math {
 	
-	std::vector<int> interpolate(float i0, float d0, float i1, float d1);
+	std::vector<float> interpolateFloat(float i0, float d0, float i1, float d1);
+	std::vector<int> interpolateInt(float i0, float d0, float i1, float d1);
 
 }
 

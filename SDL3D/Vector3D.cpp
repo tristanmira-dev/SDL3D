@@ -1,4 +1,16 @@
 #include "Vector3D.hpp"
+#include "Graphics.hpp"
+#define _USE_MATH_DEFINES
+
+#include <math.h>
+
+namespace {
+	float toRad(float const degrees) {
+		return degrees * (static_cast<float>(M_PI) / 180.f);
+	}
+
+}
+
 namespace Linear {
 	Vector3D::Vector3D(float x, float y, float z) : Vector2D(x, y), z{ z } {}
 	Vector3D& Vector3D::operator+=(Vector3D const& src) {
@@ -23,4 +35,24 @@ namespace Linear {
 	Vector3D operator/(Vector3D const& vec, float const& val) {
 		return Vector3D{ vec.x / val, vec.y / val, vec.z / val };
 	}
+
+	Vector3D Vector3D::project(RenderTools::Graphics const& renderer) {
+		float pX{x/z};
+		float pY{y/z};
+
+		float viewport{ 2 * tanf(toRad(40.f)) };
+
+		float cX{ (pX/viewport) * renderer.getWidth()  };
+		float cY{ (pY/viewport) * renderer.getHeight() };
+
+
+
+		return Vector3D{cX, cY, 1.f};
+
+
+
+	}
+	
+
+
 }

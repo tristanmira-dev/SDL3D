@@ -11,6 +11,8 @@ namespace RenderTools {
 		~Graphics();
 		SDL_Renderer* getRenderer();
 		SDL_Window* getWindow();
+		int getHeight() const;
+		int getWidth() const;
 		void putPixel(int x, int y, Uint32 pixelValue);
 		void clearPixelBuff(Uint32 const& clearColor); /*CALL BEFORE MODIFYING AND DRAWING SDL PIXEL TEXTURE*/
 		void drawFromPixelBuff();

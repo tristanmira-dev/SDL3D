@@ -8,8 +8,9 @@ namespace Geometry {
 
 	struct VertexData {
 		Linear::Vector3D coord;
-		VertexData() = default;
-		VertexData(Linear::Vector3D const& coord) : coord{ coord } {}
+		float h;
+		//VertexData() = default;
+		VertexData(Linear::Vector3D const& coord = Linear::Vector3D{}, float h = 1.f) : coord{coord}, h{h} {}
 	};
 
 	struct Triangle {

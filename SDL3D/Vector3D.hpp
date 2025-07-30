@@ -2,6 +2,7 @@
 #define VECTOR3D_HPP
 
 #include "Vector2D.hpp"
+#include "Graphics.hpp"
 
 namespace Linear {
 	class Vector3D : public Vector2D {
@@ -20,11 +21,13 @@ namespace Linear {
 		virtual Vector3D operator-(Vector3D const& vec) const;
 		virtual bool operator==(Vector3D const& compare2);
 
+
+		Vector3D project(RenderTools::Graphics const& renderer);
+
 	};
 
 	Vector3D operator*(float const& val, Vector3D const& vec);
 	Vector3D operator/(Vector3D const& vec, float const& val);
-
 
 }
 
