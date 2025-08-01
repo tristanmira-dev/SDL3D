@@ -6,8 +6,14 @@
 #include "Graphics.hpp"
 #include "Color.hpp"
 #include "Shapes.hpp"
+#include "Model.hpp"
 #include "Vertex.hpp"
+#include "GameObject.hpp"
+#include "RenderEntity.hpp"
+#include "Math.hpp"
 #include <crtdbg.h>
+#include <vector>
+#include <initializer_list>
 
 
 
@@ -15,9 +21,52 @@ int main(int argc, char **argv) {
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	RenderTools::Graphics graphics(1000, 600, "WINDOW");
+	RenderTools::Graphics graphics(1000, 800, "WINDOW");
 	SDL_Event event{};
+
+	std::vector<int> test{ Math::interpolateInt(1, 2, 10, 5) };
 	
+	Entity::Model model{
+		Geometry::VertexData{
+			Linear::Vector3D{0.5f, 0.5f, 1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{-0.5f, 0.5f, 1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{-0.5f, -0.5f, 1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{0.5f, -0.5f, 1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{0.5f, 0.5f, -1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{-0.5f, 0.5f, -1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{-0.5f, -0.5f, -1.f}
+		},
+		Geometry::VertexData{
+			Linear::Vector3D{0.5f, -0.5f, -1.f}
+		}
+	};
+	Entity::GameObject gameObj{ Linear::Vector3D{2.5, 1.5, 5.f} };
+	Entity::GameObject gameObj2{ Linear::Vector3D{-1.5, 1.5, 5.f} };
+
+	model.insertTriangle(0, 1, 2);
+	model.insertTriangle(0, 2, 3);
+	model.insertTriangle(4, 0, 3);
+	model.insertTriangle(4, 3, 7);
+	model.insertTriangle(5, 4, 7);
+	model.insertTriangle(5, 7, 6);
+	model.insertTriangle(1, 5, 6);
+	model.insertTriangle(1, 6, 2);
+	model.insertTriangle(4, 5, 1);
+	model.insertTriangle(4, 1, 0);
+	model.insertTriangle(2, 6, 7);
+	model.insertTriangle(2, 7, 3);
 
 	/*GAME LOOP*/
 	while (true) {
@@ -31,39 +80,12 @@ int main(int argc, char **argv) {
 		}
 		graphics.clearPixelBuff(0);
 
-		Geometry::Triangle triangle(Geometry::VertexData{ Linear::Vector3D {0.f, 0.f}, 0.3f },
-			Geometry::VertexData{ Linear::Vector3D {200.f, 599.f}, 0.8f },
-			Geometry::VertexData{ Linear::Vector3D {400.f, 599.f}, 1.f },
-			Linear::Vector3D{}
-		);
+		//model.renderGameObj(graphics);
 
-		RenderTools::drawLine(graphics, Linear::Vector2D{ 400.f, -250.f }, Linear::Vector2D{ 400.f, 250.f }, 0x00FF00FF);
-		//RenderTools::drawWireFrameTriangle(graphics, triangle, 0xFFFFFFFF);
-		//RenderTools::drawShadedTriangle(graphics, triangle, Utils::Color{0xFF0000FF});
+		Entity::renderEntity(model, gameObj, graphics);
+		Entity::renderEntity(model, gameObj2, graphics);
 
-		// The four "front" vertices
-		Linear::Vector3D vAf{ -2, -2.f, 3 };
-		Linear::Vector3D vBf{ -2, 2.f, 3 };
-		Linear::Vector3D vCf{ 1, 2.f, 3 };
-		Linear::Vector3D vDf{ 1, -2.f, 3 };
-
-		Linear::Vector3D vAb{ -2, -2.f, 4 };
-		Linear::Vector3D vBb{ -2, 2.f, 4 };
-		Linear::Vector3D vCb{ 1, 2.f, 4 };
-		Linear::Vector3D vDb{ 1, -2.f, 4 };
-
-
-
-		RenderTools::drawLine(graphics, vAf.project(graphics), vBf.project(graphics), 0x00FF00FF);
-		RenderTools::drawLine(graphics, vBf.project(graphics), vCf.project(graphics), 0x00FF00FF);
-		RenderTools::drawLine(graphics, vCf.project(graphics), vDf.project(graphics), 0x00FF00FF);
-		RenderTools::drawLine(graphics, vDf.project(graphics), vAf.project(graphics), 0x00FF00FF);
-
-		RenderTools::drawLine(graphics, vAb.project(graphics), vBb.project(graphics), 0x00FF00FF);
-		RenderTools::drawLine(graphics, vBb.project(graphics), vCb.project(graphics), 0x00FF00FF);
-		RenderTools::drawLine(graphics, vCb.project(graphics), vDb.project(graphics), 0x00FF00FF);
-		RenderTools::drawLine(graphics, vDb.project(graphics), vAb.project(graphics), 0x00FF00FF);
-
+	
 		graphics.drawFromPixelBuff();
 
 	}

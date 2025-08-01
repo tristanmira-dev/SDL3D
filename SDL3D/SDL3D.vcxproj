@@ -134,9 +134,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="RenderEntity.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Vector3D.cpp" />
@@ -144,8 +148,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.hpp" />
+    <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="Model.hpp" />
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="Math.hpp" />
+    <ClInclude Include="Matrix.hpp" />
+    <ClInclude Include="RenderEntity.hpp" />
     <ClInclude Include="Shapes.hpp" />
     <ClInclude Include="Vector2D.hpp" />
     <ClInclude Include="Vector3D.hpp" />

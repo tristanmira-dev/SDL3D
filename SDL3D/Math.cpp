@@ -1,5 +1,8 @@
 #include "Math.hpp"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 namespace Math {
 	std::vector<int> interpolateInt(float i0, float d0, float i1, float d1) {
 
@@ -19,6 +22,10 @@ namespace Math {
 
 
 		return values;
+	}
+
+	float toRad(float const degrees) {
+		return degrees * (static_cast<float>(M_PI) / 180.f);
 	}
 
 	std::vector<float> interpolateFloat(float i0, float d0, float i1, float d1) {

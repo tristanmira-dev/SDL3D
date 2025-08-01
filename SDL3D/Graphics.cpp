@@ -22,6 +22,7 @@ namespace RenderTools {
 		SDL_DestroyTexture(pixelTexture);
 		SDL_DestroyWindow(window);
 		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
 	}
 
 	SDL_Renderer* Graphics::getRenderer() {
@@ -41,8 +42,8 @@ namespace RenderTools {
 
 	void Graphics::putPixel(int x, int y, Uint32 pixelValue) {
 
-		x = x + (width / 2.f);
-		y = y + (height / 2.f);
+		x = x + static_cast<int>(width / 2.f);
+		y = y + static_cast<int>(height / 2.f);
 
 		pixelBuffer[y * width + x] = pixelValue;
 
@@ -59,7 +60,5 @@ namespace RenderTools {
 
 		SDL_RenderPresent(renderer);
 	}
-
-
 
 }
