@@ -52,8 +52,8 @@ int main(int argc, char **argv) {
 			Linear::Vector3D{0.5f, -0.5f, -1.f}
 		}
 	};
-	Entity::GameObject gameObj{ Linear::Vector3D{2.5, 1.5, 5.f} };
-	Entity::GameObject gameObj2{ Linear::Vector3D{-1.5, 1.5, 5.f} };
+
+	Entity::Camera camera{ Linear::Vector3D{0.f, 0.f, 0.f}, Entity::Rotation{25.f, 0.f, 0.f} };
 
 	model.insertTriangle(0, 1, 2);
 	model.insertTriangle(0, 2, 3);
@@ -81,10 +81,13 @@ int main(int argc, char **argv) {
 		graphics.clearPixelBuff(0);
 
 		//model.renderGameObj(graphics);
+		Entity::GameObject a{ Linear::Vector3D{-1.f, -1.5f, 5.f}, Linear::Vector3D{0.5f, 0.5f, 1.f}, Entity::Rotation{0.f, 100.f, 0.f } };
+		Entity::GameObject b{ Linear::Vector3D{0.f, 0.f, 5.f}, Linear::Vector3D{0.5f, 0.5f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
 
-		Entity::renderEntity(model, gameObj, graphics);
-		Entity::renderEntity(model, gameObj2, graphics);
-
+		/*Entity::renderEntity(camera, model, gameObj, graphics);
+		Entity::renderEntity(camera, model, gameObj2, graphics);*/
+		Entity::renderEntity(camera, model, a, graphics);
+		Entity::renderEntity(camera, model, b, graphics);
 	
 		graphics.drawFromPixelBuff();
 

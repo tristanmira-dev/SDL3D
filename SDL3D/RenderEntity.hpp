@@ -4,11 +4,10 @@
 
 #include "GameObject.hpp"
 #include "Model.hpp"
+#include "Camera.hpp"
 
 namespace Entity {
-	void renderEntity(Model &model, GameObject &obj, RenderTools::Graphics& renderer);
-
-
+	void renderEntity(Camera& camera, Model& model, GameObject& obj, RenderTools::Graphics& renderer);
 }
 
 
