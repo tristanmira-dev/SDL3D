@@ -42,9 +42,6 @@ namespace RenderTools {
 
 	void Graphics::putPixel(int x, int y, Uint32 pixelValue) {
 
-		x = x + static_cast<int>(width / 2.f);
-		y = y + static_cast<int>(height / 2.f);
-
 		pixelBuffer[y * width + x] = pixelValue;
 
 	}

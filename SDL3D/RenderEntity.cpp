@@ -32,7 +32,12 @@ namespace Entity {
 		Linear::Matrix4x4 cameraPitchMtx{ Linear::Matrix4x4::rotationPitch(-cameraRot.pitch) };
 		Linear::Matrix4x4 finalTrans{ cameraPitchMtx * cameraYawMtx * camTrans * worldTransform };
 
+		/*SCREEN SPACE TRANSFORMATION*/
+		/*TRANSLATE TO MIDDLE OF THE SCREEN (SCREEN SPACE)*/
+		float width{ renderer.getWidth() / 2.f };
+		float height{ renderer.getHeight() / 2.f };
 
+		Linear::Vector3D screenSpaceTrans{ width, height, 0.f };
 
 		for (Geometry::Triangle& triangle : model.getTriContainer()) {
 
@@ -63,8 +68,11 @@ namespace Entity {
 				}
 			};
 
+			projectedTri.vertices[0].coord += screenSpaceTrans;
+			projectedTri.vertices[1].coord += screenSpaceTrans;
+			projectedTri.vertices[2].coord += screenSpaceTrans;
 
-			RenderTools::drawWireFrameTriangle(renderer, projectedTri, 0xFF0000FF);
+			RenderTools::drawTriangle(renderer, projectedTri, 0xFF0000FF);
 		}
 
 	}

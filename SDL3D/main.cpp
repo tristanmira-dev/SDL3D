@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	RenderTools::Graphics graphics(1000, 800, "WINDOW");
+	RenderTools::Graphics graphics(1000, 900, "WINDOW");
 	SDL_Event event{};
 
 	std::vector<int> test{ Math::interpolateInt(1, 2, 10, 5) };
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 		}
 	};
 
-	Entity::Camera camera{ Linear::Vector3D{0.f, 0.f, 0.f}, Entity::Rotation{25.f, 0.f, 0.f} };
+	Entity::Camera camera{ Linear::Vector3D{0.f, 0.f, 0.f}, Entity::Rotation{0.f, 0.f, 0.f} };
 
 	model.insertTriangle(0, 1, 2);
 	model.insertTriangle(0, 2, 3);
@@ -81,13 +81,13 @@ int main(int argc, char **argv) {
 		graphics.clearPixelBuff(0);
 
 		//model.renderGameObj(graphics);
-		Entity::GameObject a{ Linear::Vector3D{-1.f, -1.5f, 5.f}, Linear::Vector3D{0.5f, 0.5f, 1.f}, Entity::Rotation{0.f, 100.f, 0.f } };
-		Entity::GameObject b{ Linear::Vector3D{0.f, 0.f, 5.f}, Linear::Vector3D{0.5f, 0.5f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
+		Entity::GameObject a{ Linear::Vector3D{1.f, 1.f, 5.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
+		//Entity::GameObject b{ Linear::Vector3D{-1.f, 0.f, 5.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
 
 		/*Entity::renderEntity(camera, model, gameObj, graphics);
 		Entity::renderEntity(camera, model, gameObj2, graphics);*/
 		Entity::renderEntity(camera, model, a, graphics);
-		Entity::renderEntity(camera, model, b, graphics);
+		//Entity::renderEntity(camera, model, b, graphics);
 	
 		graphics.drawFromPixelBuff();
 
