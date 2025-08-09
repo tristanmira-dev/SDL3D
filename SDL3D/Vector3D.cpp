@@ -31,7 +31,7 @@ namespace Linear {
 		float pX{x/z};
 		float pY{y/z};
 
-		float viewport{ 2 * tanf(Math::toRad(40.f)) };
+		float viewport{ 2 * tanf(Math::toRad(60.f)) };
 
 		float cX{ (pX/viewport) * renderer.getWidth()  };
 		float cY{ (pY/viewport) * renderer.getHeight() };

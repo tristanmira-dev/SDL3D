@@ -4,9 +4,16 @@
 #include "Shapes.hpp"
 #include "Graphics.hpp"
 #include "Camera.hpp"
+#include "Plane.hpp"
 
 namespace Entity {
-	void renderEntity(Camera &camera, Model& model, GameObject& obj, RenderTools::Graphics &renderer) {
+	void renderEntity(Camera& camera, Model& model, GameObject& obj, RenderTools::Graphics& renderer) {
+
+		Linear::PlaneCollection planes;
+
+		float distance{ 2.f };
+		float fov{ 120.f };
+		Linear::setPlanes(distance, fov, planes);
 
 
 		/*OBJECT TO WORLD TRANSFORMATION*/
