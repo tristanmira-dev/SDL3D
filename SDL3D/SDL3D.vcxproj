@@ -141,6 +141,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="RenderEntity.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Vector2D.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Matrix.hpp" />
+    <ClInclude Include="Plane.hpp" />
     <ClInclude Include="RenderEntity.hpp" />
     <ClInclude Include="Shapes.hpp" />
     <ClInclude Include="Vector2D.hpp" />
