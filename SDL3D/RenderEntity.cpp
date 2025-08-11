@@ -6,6 +6,8 @@
 #include "Camera.hpp"
 #include "Plane.hpp"
 
+#include <iostream>
+
 namespace Entity {
 	void renderEntity(Camera& camera, Model& model, GameObject& obj, RenderTools::Graphics& renderer) {
 
@@ -14,6 +16,7 @@ namespace Entity {
 		float distance{ 2.f };
 		float fov{ 120.f };
 		Linear::setPlanes(distance, fov, planes);
+
 
 
 		/*OBJECT TO WORLD TRANSFORMATION*/
@@ -48,6 +51,10 @@ namespace Entity {
 
 		for (Geometry::Triangle& triangle : model.getTriContainer()) {
 
+
+
+
+
 			Geometry::Vertices newVertices{
 				Geometry::VertexData {
 					triangle.vertices[0].coord
@@ -61,6 +68,8 @@ namespace Entity {
 			};
 
 			Geometry::transformVertices(finalTrans, newVertices);
+
+			std::cout << Linear::signedDistance(planes.coll[Linear::CommonPlanesNormal::MIDDLE].normal, newVertices[0].coord) << '\n';
 
 
 			Geometry::Triangle projectedTri{

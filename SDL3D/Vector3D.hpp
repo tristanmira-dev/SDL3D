@@ -24,6 +24,12 @@ namespace Linear {
 
 		Vector3D project(RenderTools::Graphics const& renderer);
 
+		float dot(Vector3D const& vec2);
+		float dot(Vector3D const& vec2) const;
+
+		Vector3D normalize();
+		Vector3D normalize() const;
+
 	};
 
 	Vector3D operator*(float const& val, Vector3D const& vec);

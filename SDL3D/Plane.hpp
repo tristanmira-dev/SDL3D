@@ -3,7 +3,11 @@
 
 
 #include "Vector3D.hpp"
+#include "Vertex.hpp"
 #include <unordered_map>
+
+
+/*TODO HAVE AN EXTRA MEMBER VAR FOR PLANE COORDINATE*/
 
 namespace Linear {
 
@@ -16,11 +20,21 @@ namespace Linear {
 		MIDDLE
 	};
 
+	struct Plane {
+		Vector3D normal;
+		Vector3D coord;
+	};
+
 	struct PlaneCollection {
-		std::unordered_map<int, Vector3D> coll; /*COLLECTION OF NORMALS*/
+		std::unordered_map<int, Plane> coll; /*COLLECTION OF NORMALS*/
 	};
 
 	void setPlanes(float d, float fov, PlaneCollection& coll);
+
+	float signedDistance(Vector3D const planeNormal, Vector3D const pt);
+
+	Geometry::TriangleContainer clipTri();
+	
 
 }
 

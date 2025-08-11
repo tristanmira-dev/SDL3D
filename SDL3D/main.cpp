@@ -81,9 +81,9 @@ int main(int argc, char **argv) {
 		graphics.clearPixelBuff(0);
 
 		//model.renderGameObj(graphics);
-		Entity::GameObject a{ Linear::Vector3D{-2.f, 2.f, 5.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{20.f, 100.f, 0.f } };
+		Entity::GameObject a{ Linear::Vector3D{-2.f, 2.f, 6.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{20.f, 100.f, 0.f } };
 		Entity::GameObject b{ Linear::Vector3D{-2.f, 0.f, 8.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
-		Entity::GameObject c{ Linear::Vector3D{0.5f, 0.f, 4.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
+		Entity::GameObject c{ Linear::Vector3D{0.5f, 0.f, 6.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
 
 		/*Entity::renderEntity(camera, model, gameObj, graphics);
 		Entity::renderEntity(camera, model, gameObj2, graphics);*/

@@ -1,6 +1,7 @@
 #include "Vector3D.hpp"
 #include "Graphics.hpp"
 #include "Math.hpp"
+#include <cmath>
 
 namespace Linear {
 	Vector3D::Vector3D(float x, float y, float z) : Vector2D(x, y), z{ z } {}
@@ -40,6 +41,28 @@ namespace Linear {
 
 		return Vector3D{cX, cY, 1.f};
 
+	}
+
+
+	
+
+	float Vector3D::dot(Vector3D const& vec2) {
+		return this->x * vec2.x + this->y * vec2.y + this->z * vec2.z;
+	}
+
+	float Vector3D::dot(Vector3D const& vec2) const {
+		return this->x * vec2.x + this->y * vec2.y + this->z * vec2.z;
+	}
+
+	Vector3D Vector3D::normalize() {
+
+		float length{ std::sqrtf(this->dot(*this)) };
+		return Vector3D{ this->x / length, this->y / length, this->z / length };
+	}
+
+	Vector3D Vector3D::normalize() const {
+		float length{ std::sqrtf(this->dot(*this)) };
+		return Vector3D{ this->x / length, this->y / length, this->z / length };
 	}
 	
 
