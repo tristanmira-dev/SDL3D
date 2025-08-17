@@ -42,7 +42,7 @@ namespace RenderTools {
 				std::swap(newP0, newP1);
 			};
 				
-			std::vector<int> values{ Math::interpolateInt(newP0->x, newP0->y, newP1->x, newP1->y) };
+			std::vector<int> values{ Math::interpolateInt(static_cast<int>(newP0->x), newP0->y, static_cast<int>(newP1->x), newP1->y) };
 
 			for (int x{ static_cast<int>(newP0->x) }; x <= newP1->x; ++x) {
 				renderer.putPixel(x, values[static_cast<int>(x - newP0->x)], color);
@@ -52,7 +52,7 @@ namespace RenderTools {
 
 			if (newP0->y > newP1->y) std::swap(newP0, newP1);
 
-			std::vector<int> values{ Math::interpolateInt(newP0->y, newP0->x, newP1->y, newP1->x) };
+			std::vector<int> values{ Math::interpolateInt(static_cast<int>(newP0->y), newP0->x, static_cast<int>(newP1->y), newP1->x) };
 
 			for (int y{ static_cast<int>(newP0->y) }; y <= newP1->y; ++y) {
 				renderer.putPixel(values[static_cast<int>(y - newP0->y)], y, color);
@@ -71,6 +71,9 @@ namespace RenderTools {
 
 	void drawTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const& tri, Utils::Color const &color) {
 
+		int maxWidth{ renderer.getWidth() };
+		int maxHeight{ renderer.getHeight() };
+
 		Geometry::VertexData const* p0{ &(tri.vertices[0]) };
 		Geometry::VertexData const* p1{ &(tri.vertices[1]) };
 		Geometry::VertexData const* p2{ &(tri.vertices[2]) };
@@ -79,9 +82,9 @@ namespace RenderTools {
 		std::swap(p0, min(min(p0, p1), p2)); std::swap(p1, min(p1, p2));
 
 		//in a flat bottom/flat top triangle, x12/x01 respectively will only have 1 element (Since the independant variables (y) are the same for 2 points)
-		std::vector<int> x01{ Math::interpolateInt(p0->coord.y, p0->coord.x, p1->coord.y, p1->coord.x) };
-		std::vector<int> x12{ Math::interpolateInt(p1->coord.y, p1->coord.x, p2->coord.y, p2->coord.x) };
-		std::vector<int> x02{ Math::interpolateInt(p0->coord.y, p0->coord.x, p2->coord.y, p2->coord.x) };
+		std::vector<int> x01{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p1->coord.y), p1->coord.x) };
+		std::vector<int> x12{ Math::interpolateInt(static_cast<int>(p1->coord.y), p1->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
+		std::vector<int> x02{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
 
 		/*x01 will contain the full set of x values of two sides, x01 and x12 for now*/
 		concat(x01, x12);
@@ -100,10 +103,11 @@ namespace RenderTools {
 			left_x = x02;
 		}
 
-		for (int y{ static_cast<int>(p0->coord.y) }; y < static_cast<int>(p2->coord.y); ++y) {
+		for (int y{ static_cast<int>(p0->coord.y) }; y <= static_cast<int>(p2->coord.y); ++y) {
 			int currentY{ y - static_cast<int>(p0->coord.y) };
+
 			for (int x{ left_x[currentY] }; x <= right_x[currentY]; ++x) {
-				renderer.putPixel(x, y, color.colorVal);
+				renderer.putPixel(x,  y, color.colorVal);
 			}
 		}
 
@@ -118,14 +122,14 @@ namespace RenderTools {
 		/*SWAP coord such that y goes up to ascending order*/
 		std::swap(p0, min(min(p0, p1), p2)); std::swap(p1, min(p1, p2));
 
-		std::vector<int> x01{ Math::interpolateInt(p0->coord.y, p0->coord.x, p1->coord.y, p1->coord.x) };
+		std::vector<int> x01{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p1->coord.y), p1->coord.x) };
 		std::vector<float> h01{ Math::interpolateFloat(p0->coord.y, p0->h, p1->coord.y, p1->h) };
 
 
-		std::vector<int> x12{ Math::interpolateInt(p1->coord.y, p1->coord.x, p2->coord.y, p2->coord.x) };
+		std::vector<int> x12{ Math::interpolateInt(static_cast<int>(p1->coord.y), p1->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
 		std::vector<float> h12{ Math::interpolateFloat(p1->coord.y, p1->h, p2->coord.y, p2->h) };
 
-		std::vector<int> x02{ Math::interpolateInt(p0->coord.y, p0->coord.x, p2->coord.y, p2->coord.x) };
+		std::vector<int> x02{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
 		std::vector<float> h02{ Math::interpolateFloat(p0->coord.y, p0->h, p2->coord.y, p2->h) };
 
 

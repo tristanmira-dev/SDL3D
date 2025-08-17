@@ -25,7 +25,7 @@ namespace Entity {
 	}
 	void Model::renderGameObj(RenderTools::Graphics& renderer) {
 
-		Linear::Matrix4x4 translate{ Linear::Matrix4x4::translateMatrix(0.0f, 0.0f, 3.f) };
+		/*Linear::Matrix4x4 translate{ Linear::Matrix4x4::translateMatrix(0.0f, 0.0f, 3.f) };
 
 		for (Geometry::Triangle& triangle : triContainer) {
 
@@ -58,7 +58,7 @@ namespace Entity {
 
 
 			RenderTools::drawWireFrameTriangle(renderer, projectedTri, 0xFF0000FF);
-		}
+		}*/
 
 	}
 	Geometry::TriangleContainer& Model::getTriContainer() {

@@ -10,6 +10,10 @@
 /*TODO HAVE AN EXTRA MEMBER VAR FOR PLANE COORDINATE*/
 
 namespace Linear {
+	const int oneTri{ 1 };
+	const int twoTri{ 2 };
+	const int zeroTri{ 0 };
+
 
 	/*FOR CLIPPING*/
 	enum CommonPlanesNormal {
@@ -29,11 +33,13 @@ namespace Linear {
 		std::unordered_map<int, Plane> coll; /*COLLECTION OF NORMALS*/
 	};
 
+	Geometry::VertexData planeSegmIntersection(Plane const& plane, Linear::Vector3D pt0, Linear::Vector3D pt1);
+
 	void setPlanes(float d, float fov, PlaneCollection& coll);
 
-	float signedDistance(Vector3D const planeNormal, Vector3D const pt);
+	float signedDistance(Plane const& plane, Vector3D const pt);
 
-	Geometry::TriangleContainer clipTri();
+	int clipTri(Plane const& plane, Geometry::Triangle inputTri, Geometry::Triangle& tri1, Geometry::Triangle& tri2);
 	
 
 }

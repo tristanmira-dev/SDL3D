@@ -22,7 +22,7 @@ namespace Linear {
 		virtual bool operator==(Vector3D const& compare2);
 
 
-		Vector3D project(RenderTools::Graphics const& renderer);
+		Vector3D project(RenderTools::Graphics const& renderer, float d, float fov);
 
 		float dot(Vector3D const& vec2);
 		float dot(Vector3D const& vec2) const;

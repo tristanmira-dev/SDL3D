@@ -28,14 +28,15 @@ namespace Linear {
 		return Vector3D{ vec.x / val, vec.y / val, vec.z / val };
 	}
 
-	Vector3D Vector3D::project(RenderTools::Graphics const& renderer) {
-		float pX{x/z};
-		float pY{y/z};
+	Vector3D Vector3D::project(RenderTools::Graphics const& renderer, float d, float fov) {
+		float pX{(x*d)/z};
+		float pY{(y*d)/z};
 
-		float viewport{ 2 * tanf(Math::toRad(60.f)) };
+		float viewport{ 2 * tanf(Math::toRad(fov/2.f)) * d };
 
-		float cX{ (pX/viewport) * renderer.getWidth()  };
-		float cY{ (pY/viewport) * renderer.getHeight() };
+
+		float cX{ (pX/viewport) * (renderer.getWidth())  };
+		float cY{ (pY/viewport) * (renderer.getHeight()) };
 
 
 

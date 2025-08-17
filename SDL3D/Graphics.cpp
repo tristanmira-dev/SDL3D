@@ -34,10 +34,10 @@ namespace RenderTools {
 	}
 
 	int Graphics::getHeight() const {
-		return height;
+		return height - 1;
 	}
 	int Graphics::getWidth() const {
-		return width;
+		return width - 1;
 	}
 
 	void Graphics::putPixel(int x, int y, Uint32 pixelValue) {

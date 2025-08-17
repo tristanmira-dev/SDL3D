@@ -7,13 +7,15 @@
 #include "Plane.hpp"
 
 #include <iostream>
+#include <list>
+#include <array>
 
 namespace Entity {
 	void renderEntity(Camera& camera, Model& model, GameObject& obj, RenderTools::Graphics& renderer) {
 
 		Linear::PlaneCollection planes;
 
-		float distance{ 2.f };
+		float distance{ 1.f };
 		float fov{ 120.f };
 		Linear::setPlanes(distance, fov, planes);
 
@@ -44,18 +46,14 @@ namespace Entity {
 
 		/*SCREEN SPACE TRANSFORMATION*/
 		/*TRANSLATE TO MIDDLE OF THE SCREEN (SCREEN SPACE)*/
-		float width{ renderer.getWidth() / 2.f };
-		float height{ renderer.getHeight() / 2.f };
-
+		float width{ (renderer.getWidth()) / 2.f };
+		float height{ (renderer.getHeight()) / 2.f };
 		Linear::Vector3D screenSpaceTrans{ width, height, 0.f };
 
 		for (Geometry::Triangle& triangle : model.getTriContainer()) {
 
 
-
-
-
-			Geometry::Vertices newVertices{
+			Geometry::Triangle newTri{
 				Geometry::VertexData {
 					triangle.vertices[0].coord
 				},
@@ -67,28 +65,55 @@ namespace Entity {
 				}
 			};
 
-			Geometry::transformVertices(finalTrans, newVertices);
 
-			std::cout << Linear::signedDistance(planes.coll[Linear::CommonPlanesNormal::MIDDLE].normal, newVertices[0].coord) << '\n';
+			Geometry::transformVertices(finalTrans, newTri.vertices);
+
+			std::list<Geometry::Triangle> listTris{newTri};
+			int newTriCount{ 1 };
+			std::array<Geometry::Triangle, 2> clippedTris{};
+
+			/*CLIP VERTICES*/
+			int maxPlaneCount{ static_cast<int>(Linear::CommonPlanesNormal::MIDDLE) };
+			for (int i{ static_cast<int>(Linear::CommonPlanesNormal::TOP) }; i <= maxPlaneCount; ++i) {
+				
+				int triAdded{};
+
+				while (newTriCount > 0) {
+					
 
 
-			Geometry::Triangle projectedTri{
-				Geometry::VertexData {
-					newVertices[0].coord.project(renderer)
-				},
-				Geometry::VertexData {
-					newVertices[1].coord.project(renderer)
-				},
-				Geometry::VertexData {
-					newVertices[2].coord.project(renderer)
+					Geometry::Triangle head{ listTris.front() };
+					listTris.pop_front();
+					triAdded = Linear::clipTri(planes.coll[static_cast<Linear::CommonPlanesNormal>(i)], head, clippedTris[0], clippedTris[1]);
+					for (int x{ 0 }; x < triAdded; ++x) {
+						listTris.push_back(clippedTris[x]);
+					}
+
+					
+					newTriCount--;
 				}
-			};
 
-			projectedTri.vertices[0].coord += screenSpaceTrans;
-			projectedTri.vertices[1].coord += screenSpaceTrans;
-			projectedTri.vertices[2].coord += screenSpaceTrans;
+				newTriCount = static_cast<int>(listTris.size());
+			}
 
-			RenderTools::drawTriangle(renderer, projectedTri, 0xFF0000FF);
+			
+			for (Geometry::Triangle& triToRender : listTris) {
+				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov) },  
+					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov)  } ,
+					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov) } 
+				};
+				
+
+
+				projected.vertices[0].coord += screenSpaceTrans;
+				projected.vertices[1].coord += screenSpaceTrans;
+				projected.vertices[2].coord += screenSpaceTrans;
+
+				RenderTools::drawTriangle(renderer, projected, 0xFFFF00FF);
+
+			}
+
+
 		}
 
 	}

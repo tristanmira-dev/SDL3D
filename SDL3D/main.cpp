@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 		}
 	};
 
-	Entity::Camera camera{ Linear::Vector3D{-2.f, 3.f, 0.f}, Entity::Rotation{10.f, -15.f, 0.f} };
+	Entity::Camera camera{ Linear::Vector3D{4.f, 0.f, -5.f}, Entity::Rotation{5.f, 40.f, 0.f} };
 
 	model.insertTriangle(0, 1, 2);
 	model.insertTriangle(0, 2, 3);
@@ -78,19 +78,31 @@ int main(int argc, char **argv) {
 				return 0;
 			}
 		}
-		graphics.clearPixelBuff(0);
+		graphics.clearPixelBuff(0x0);
 
 		//model.renderGameObj(graphics);
-		Entity::GameObject a{ Linear::Vector3D{-2.f, 2.f, 6.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{20.f, 100.f, 0.f } };
+		Entity::GameObject a{ Linear::Vector3D{0.f, 0.f, 4.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
 		Entity::GameObject b{ Linear::Vector3D{-2.f, 0.f, 8.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
 		Entity::GameObject c{ Linear::Vector3D{0.5f, 0.f, 6.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
+
+		
 
 		/*Entity::renderEntity(camera, model, gameObj, graphics);
 		Entity::renderEntity(camera, model, gameObj2, graphics);*/
 		Entity::renderEntity(camera, model, a, graphics);
-		Entity::renderEntity(camera, model, b, graphics);
-		Entity::renderEntity(camera, model, c, graphics);
+		/*Entity::renderEntity(camera, model, b, graphics);
+		Entity::renderEntity(camera, model, c, graphics);*/
 	
+		/*RenderTools::drawTriangle(graphics, Geometry::Triangle{
+
+				Geometry::VertexData {Linear::Vector3D{876.620728f, 469.462982f,0.f}},
+				Geometry::VertexData {Linear::Vector3D{999.f, 474.149353f,0.f}},
+				Geometry::VertexData {Linear::Vector3D{999.000061f, 475.941162f,0.f}}
+
+
+			}, Utils::Color{ 0xFF0000FF }
+		);*/
+
 		graphics.drawFromPixelBuff();
 
 	}
