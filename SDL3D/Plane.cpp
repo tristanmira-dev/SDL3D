@@ -34,13 +34,13 @@ namespace Linear {
 		return plane.normal.dot(pt) - plane.normal.dot(plane.coord);
 	}
 
-	Geometry::VertexData planeSegmIntersection(Plane const& plane, Linear::Vector3D pt0, Linear::Vector3D pt1) {
+	Linear::Vector3D planeSegmIntersection(Plane const& plane, Linear::Vector3D pt0, Linear::Vector3D pt1) {
 	
 		Linear::Vector3D lineSegm{ pt1 - pt0 };
 
 		float t{ (plane.normal.dot(plane.coord) - plane.normal.dot(pt0)) / plane.normal.dot(lineSegm) };
 
-		return Geometry::VertexData{ pt0 + t * lineSegm };
+		return Linear::Vector3D{ pt0 + t * lineSegm };
 	
 	}
 
@@ -88,8 +88,8 @@ namespace Linear {
 
 
 		if (totalInside == 1) {
-			Geometry::VertexData pt01{ planeSegmIntersection(plane, insidePoints[0]->coord, outsidePoints[0]->coord) };
-			Geometry::VertexData pt02{ planeSegmIntersection(plane, insidePoints[0]->coord, outsidePoints[1]->coord) };
+			Geometry::VertexData pt01{ planeSegmIntersection(plane, insidePoints[0]->coord, outsidePoints[0]->coord), 1.f, 0xFF0000FF };
+			Geometry::VertexData pt02{ planeSegmIntersection(plane, insidePoints[0]->coord, outsidePoints[1]->coord), 1.f, 0xFF0000FF };
 
 
 			tri1.vertices = Geometry::Vertices{ *(insidePoints[0]), pt01, pt02 };
@@ -99,8 +99,8 @@ namespace Linear {
 		}
 
 		if (totalInside == 2) {
-			Geometry::VertexData pt02{ planeSegmIntersection(plane, insidePoints[0]->coord, outsidePoints[0]->coord) };
-			Geometry::VertexData pt12{ planeSegmIntersection(plane, insidePoints[1]->coord, outsidePoints[0]->coord) };
+			Geometry::VertexData pt02{ planeSegmIntersection(plane, insidePoints[0]->coord, outsidePoints[0]->coord), 1.f, 0xFF0000FF };
+			Geometry::VertexData pt12{ planeSegmIntersection(plane, insidePoints[1]->coord, outsidePoints[0]->coord), 1.f, 0xFF0000FF };
 
 			tri1.vertices = Geometry::Vertices{ *(insidePoints[0]), *(insidePoints[1]), pt02 };
 			tri2.vertices = Geometry::Vertices{ *(insidePoints[1]), pt12, pt02 };

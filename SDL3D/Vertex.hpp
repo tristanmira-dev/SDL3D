@@ -3,16 +3,19 @@
 
 #include "Vector3D.hpp"
 #include "Matrix.hpp"
+#include "Color.hpp"
 #include <array>
 #include <vector>
+
 
 namespace Geometry {
 
 	struct VertexData {
 		Linear::Vector3D coord;
+		Utils::Color color;
 		float h;
 		//VertexData() = default;
-		VertexData(Linear::Vector3D const& coord = Linear::Vector3D{}, float h = 1.f) : coord{coord}, h{h} {}
+		VertexData(Linear::Vector3D const& coord = Linear::Vector3D{}, float const &h = 1.f, Utils::Color const &color = Utils::Color{ 0 }) : coord{ coord }, h{ h }, color{color} {}
 	};
 
 	using Vertices = std::array<VertexData, 3>;

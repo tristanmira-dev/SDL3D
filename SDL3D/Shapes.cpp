@@ -71,9 +71,6 @@ namespace RenderTools {
 
 	void drawTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const& tri, Utils::Color const &color) {
 
-		int maxWidth{ renderer.getWidth() };
-		int maxHeight{ renderer.getHeight() };
-
 		Geometry::VertexData const* p0{ &(tri.vertices[0]) };
 		Geometry::VertexData const* p1{ &(tri.vertices[1]) };
 		Geometry::VertexData const* p2{ &(tri.vertices[2]) };
@@ -108,6 +105,67 @@ namespace RenderTools {
 
 			for (int x{ left_x[currentY] }; x <= right_x[currentY]; ++x) {
 				renderer.putPixel(x,  y, color.colorVal);
+			}
+		}
+
+	}
+
+	void drawInterpolatedTri(RenderTools::Graphics& renderer, Geometry::Triangle const& tri) {
+		Geometry::VertexData const* p0{ &tri.vertices[0] };
+		Geometry::VertexData const* p1{ &tri.vertices[1] };
+		Geometry::VertexData const* p2{ &tri.vertices[2] };
+
+		std::swap(p0, min(min(p0, p1), p2)); std::swap(p1, min(p1, p2));
+
+		/*Coord interpolation*/
+		std::vector<int> p01{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p1->coord.y), p1->coord.x) };
+		std::vector<int> p12{ Math::interpolateInt(static_cast<int>(p1->coord.y), p1->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
+		std::vector<int> p02{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
+
+		/*Color interpolation*/
+		std::vector<Utils::Color> c01{ Math::interpolateColor(static_cast<int>(p0->coord.y), p0->color, static_cast<int>(p1->coord.y), p1->color) };
+		std::vector<Utils::Color> c12{ Math::interpolateColor(static_cast<int>(p1->coord.y), p1->color, static_cast<int>(p2->coord.y), p2->color) };
+		std::vector<Utils::Color> c02{ Math::interpolateColor(static_cast<int>(p0->coord.y), p0->color, static_cast<int>(p2->coord.y), p2->color) };
+
+
+		concat(p01, p12);
+		concat(c01, c12);
+
+		int midpoint{ static_cast<int>(std::floorf(p01.size() / 2.f)) };
+
+		std::vector<int> leftP;
+		std::vector<int> rightP;
+
+		std::vector<Utils::Color> leftC;
+		std::vector<Utils::Color> rightC;
+
+		if (p01[midpoint] > p02[midpoint]) {
+			leftP = p02;
+			leftC = c02;
+
+			rightP = p01;
+			rightC = c01;
+		}
+		else {
+			leftP = p01;
+			leftC = c01;
+
+			rightP = p02;
+			rightC = c02;
+		}
+
+		int endY{ static_cast<int>(p2->coord.y) };
+		for (int y{ static_cast<int>(p0->coord.y) }; y <= endY; ++y) {
+
+			int currY{ y - static_cast<int>(p0->coord.y) };
+
+			int endX{ rightP[currY] };
+			int startX{ leftP[currY] };
+
+			std::vector<Utils::Color> interpolatedColVals{ Math::interpolateColor(startX, leftC[currY], endX, rightC[currY]) };
+
+			for (int x{startX}; x <= endX; ++x) {
+				renderer.putPixel(x, y, interpolatedColVals[x - startX].colorVal);
 			}
 		}
 

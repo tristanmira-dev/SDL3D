@@ -8,8 +8,17 @@ namespace Utils {
 			
 			Uint32 colorVal;
 
-			Uint32 operator*(float alpha) const;
+			Color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 			Color(Uint32 colorVal);
+
+
+			Uint8 r();
+			Uint8 g();
+			Uint8 b();
+			Uint8 a();
+
+
+			Uint32 operator*(float alpha) const;
 
 		private:
 			Uint32 blueBits;

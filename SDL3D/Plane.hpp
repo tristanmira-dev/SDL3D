@@ -33,7 +33,7 @@ namespace Linear {
 		std::unordered_map<int, Plane> coll; /*COLLECTION OF NORMALS*/
 	};
 
-	Geometry::VertexData planeSegmIntersection(Plane const& plane, Linear::Vector3D pt0, Linear::Vector3D pt1);
+	Linear::Vector3D planeSegmIntersection(Plane const& plane, Linear::Vector3D pt0, Linear::Vector3D pt1);
 
 	void setPlanes(float d, float fov, PlaneCollection& coll);
 

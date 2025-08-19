@@ -55,13 +55,13 @@ namespace Entity {
 
 			Geometry::Triangle newTri{
 				Geometry::VertexData {
-					triangle.vertices[0].coord
+					triangle.vertices[0]
 				},
 				Geometry::VertexData {
-					triangle.vertices[1].coord
+					triangle.vertices[1]
 				},
 				Geometry::VertexData {
-					triangle.vertices[2].coord
+					triangle.vertices[2]
 				}
 			};
 
@@ -98,9 +98,9 @@ namespace Entity {
 
 			
 			for (Geometry::Triangle& triToRender : listTris) {
-				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov) },  
-					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov)  } ,
-					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov) } 
+				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov), 1.f,triToRender.vertices[0].color } ,
+					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[1].color  } ,
+					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[2].color }
 				};
 				
 
@@ -109,7 +109,7 @@ namespace Entity {
 				projected.vertices[1].coord += screenSpaceTrans;
 				projected.vertices[2].coord += screenSpaceTrans;
 
-				RenderTools::drawTriangle(renderer, projected, 0xFFFF00FF);
+				RenderTools::drawInterpolatedTri(renderer, projected);
 
 			}
 

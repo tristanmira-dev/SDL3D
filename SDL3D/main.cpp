@@ -23,37 +23,51 @@ int main(int argc, char **argv) {
 
 	RenderTools::Graphics graphics(1000, 900, "WINDOW");
 	SDL_Event event{};
-
-	std::vector<int> test{ Math::interpolateInt(1, 2, 10, 5) };
 	
 	Entity::Model model{
 		Geometry::VertexData{
-			Linear::Vector3D{0.5f, 0.5f, 1.f}
+			Linear::Vector3D{0.5f, 0.5f, 1.f},
+			1.f,
+			Utils::Color{0xFF0000FF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{-0.5f, 0.5f, 1.f}
+			Linear::Vector3D{-0.5f, 0.5f, 1.f},
+			1.f,
+			Utils::Color{0x00FF00FF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{-0.5f, -0.5f, 1.f}
+			Linear::Vector3D{-0.5f, -0.5f, 1.f},
+			1.f,
+			Utils::Color{0x0000FFFF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{0.5f, -0.5f, 1.f}
+			Linear::Vector3D{0.5f, -0.5f, 1.f},
+			1.f,
+			Utils::Color{0xFFFFFFFF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{0.5f, 0.5f, -1.f}
+			Linear::Vector3D{0.5f, 0.5f, -1.f},
+			1.f,
+			Utils::Color{0xFFFFFFFF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{-0.5f, 0.5f, -1.f}
+			Linear::Vector3D{-0.5f, 0.5f, -1.f},
+			1.f,
+			Utils::Color{0xFFFFFFFF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{-0.5f, -0.5f, -1.f}
+			Linear::Vector3D{-0.5f, -0.5f, -1.f},
+			1.f,
+			Utils::Color{0xFFFFFFFF}
 		},
 		Geometry::VertexData{
-			Linear::Vector3D{0.5f, -0.5f, -1.f}
+			Linear::Vector3D{0.5f, -0.5f, -1.f},
+			1.f,
+			Utils::Color{0xFFFFFFFF}
 		}
 	};
 
-	Entity::Camera camera{ Linear::Vector3D{4.f, 0.f, -5.f}, Entity::Rotation{5.f, 40.f, 0.f} };
+	Entity::Camera camera{ Linear::Vector3D{0.f, 0.f, 0.f}, Entity::Rotation{0.f, 0.f, 0.f} };
 
 	model.insertTriangle(0, 1, 2);
 	model.insertTriangle(0, 2, 3);
@@ -81,27 +95,30 @@ int main(int argc, char **argv) {
 		graphics.clearPixelBuff(0x0);
 
 		//model.renderGameObj(graphics);
-		Entity::GameObject a{ Linear::Vector3D{0.f, 0.f, 4.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
-		Entity::GameObject b{ Linear::Vector3D{-2.f, 0.f, 8.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
+		Entity::GameObject a{ Linear::Vector3D{-2.f, 0.f, 0.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
+		Entity::GameObject b{ Linear::Vector3D{0.f, 0.f, 2.f}, Linear::Vector3D{0.1f, .2f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
 		Entity::GameObject c{ Linear::Vector3D{0.5f, 0.f, 6.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
 
-		
+		//RenderTools::drawInterpolatedTri(graphics, Geometry::Triangle{
+		//	Geometry::VertexData{
+		//		Linear::Vector3D{0.f, 0.f, 0.f},
+		//		1.f,
+		//		Utils::Color{0xFF0000FF}
+		//	},
+		//	Geometry::VertexData{
+		//		Linear::Vector3D{0.f, 500.f, 0.f},
+		//		1.f,
+		//		Utils::Color{0x00FF00FF}
+		//	},
+		//	Geometry::VertexData{
+		//		Linear::Vector3D{500.f, 500.f, 0.f},
+		//		1.f,
+		//		Utils::Color{0x0000FFFF}
+		//	}
+		//});
 
-		/*Entity::renderEntity(camera, model, gameObj, graphics);
-		Entity::renderEntity(camera, model, gameObj2, graphics);*/
 		Entity::renderEntity(camera, model, a, graphics);
-		/*Entity::renderEntity(camera, model, b, graphics);
-		Entity::renderEntity(camera, model, c, graphics);*/
-	
-		/*RenderTools::drawTriangle(graphics, Geometry::Triangle{
-
-				Geometry::VertexData {Linear::Vector3D{876.620728f, 469.462982f,0.f}},
-				Geometry::VertexData {Linear::Vector3D{999.f, 474.149353f,0.f}},
-				Geometry::VertexData {Linear::Vector3D{999.000061f, 475.941162f,0.f}}
-
-
-			}, Utils::Color{ 0xFF0000FF }
-		);*/
+		Entity::renderEntity(camera, model, b, graphics);
 
 		graphics.drawFromPixelBuff();
 

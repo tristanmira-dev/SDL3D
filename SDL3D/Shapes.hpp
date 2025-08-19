@@ -14,6 +14,7 @@ namespace RenderTools {
 
 	void drawTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const &tri, Utils::Color const& color);
 	void drawShadedTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const& tri, Utils::Color const& color);
+	void drawInterpolatedTri(RenderTools::Graphics& renderer, Geometry::Triangle const& tri);
 }
 
 
