@@ -18,6 +18,9 @@ namespace Linear {
 	Vector3D Vector3D::operator-(Vector3D const& vec) const {
 		return Vector3D{ this->x - vec.x, this->y - vec.y, this->z - vec.z };
 	}
+	Vector3D Vector3D::operator-(Vector3D const& vec) {
+		return Vector3D{ this->x - vec.x, this->y - vec.y, this->z - vec.z };
+	}
 	bool Vector3D::operator==(Vector3D const& compare2) {
 		return this->x == compare2.x && this->y == compare2.y && this->z == compare2.z;
 	}
@@ -53,6 +56,22 @@ namespace Linear {
 
 	float Vector3D::dot(Vector3D const& vec2) const {
 		return this->x * vec2.x + this->y * vec2.y + this->z * vec2.z;
+	}
+
+	Vector3D Vector3D::cross(Vector3D const& vec2) const {
+		return Vector3D{
+			this->y * vec2.z - this->z * vec2.y,
+		    this->z * vec2.x - this->x * vec2.z,
+			this->x * vec2.y - this->y * vec2.x
+		};
+	}
+
+	Vector3D Vector3D::cross(Vector3D const& vec2) {
+		return Vector3D{
+			this->y * vec2.z - this->z * vec2.y,
+			this->z * vec2.x - this->x * vec2.z,
+			this->x * vec2.y - this->y * vec2.x
+		};
 	}
 
 	Vector3D Vector3D::normalize() {

@@ -67,7 +67,7 @@ namespace Math {
 		return degrees * (static_cast<float>(M_PI) / 180.f);
 	}
 
-	std::vector<float> interpolateFloat(float i0, float d0, float i1, float d1) {
+	std::vector<float> interpolateFloat(int i0, float d0, int i1, float d1) {
 
 		if (i0 == i1) {
 			return std::vector<float> { d0 };

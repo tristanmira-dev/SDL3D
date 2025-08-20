@@ -19,6 +19,8 @@ namespace Linear {
 
 
 		virtual Vector3D operator-(Vector3D const& vec) const;
+		virtual Vector3D operator-(Vector3D const& vec);
+
 		virtual bool operator==(Vector3D const& compare2);
 
 
@@ -26,6 +28,9 @@ namespace Linear {
 
 		float dot(Vector3D const& vec2);
 		float dot(Vector3D const& vec2) const;
+
+		Vector3D cross(Vector3D const &vec2) const;
+		Vector3D cross(Vector3D const& vec2);
 
 		Vector3D normalize();
 		Vector3D normalize() const;

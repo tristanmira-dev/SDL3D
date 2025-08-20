@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 		Geometry::VertexData{
 			Linear::Vector3D{-0.5f, 0.5f, 1.f},
 			1.f,
-			Utils::Color{0x00FF00FF}
+			Utils::Color{0xFF0000FF}
 		},
 		Geometry::VertexData{
 			Linear::Vector3D{-0.5f, -0.5f, 1.f},
@@ -43,12 +43,12 @@ int main(int argc, char **argv) {
 		Geometry::VertexData{
 			Linear::Vector3D{0.5f, -0.5f, 1.f},
 			1.f,
-			Utils::Color{0xFFFFFFFF}
+			Utils::Color{0xFF0000FF}
 		},
 		Geometry::VertexData{
 			Linear::Vector3D{0.5f, 0.5f, -1.f},
 			1.f,
-			Utils::Color{0xFFFFFFFF}
+			Utils::Color{0x00FF00FF}
 		},
 		Geometry::VertexData{
 			Linear::Vector3D{-0.5f, 0.5f, -1.f},
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 		Geometry::VertexData{
 			Linear::Vector3D{0.5f, -0.5f, -1.f},
 			1.f,
-			Utils::Color{0xFFFFFFFF}
+			Utils::Color{0xFF0000FF}
 		}
 	};
 
@@ -93,29 +93,30 @@ int main(int argc, char **argv) {
 			}
 		}
 		graphics.clearPixelBuff(0x0);
+		graphics.resetZBuffer();
 
 		//model.renderGameObj(graphics);
-		Entity::GameObject a{ Linear::Vector3D{-2.f, 0.f, 0.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
-		Entity::GameObject b{ Linear::Vector3D{0.f, 0.f, 2.f}, Linear::Vector3D{0.1f, .2f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
+		Entity::GameObject a{ Linear::Vector3D{-3.f, 0.f, 7.5f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
+		Entity::GameObject b{ Linear::Vector3D{1.f, 0.f, 4.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{0.f, 0.f, 0.f } };
 		Entity::GameObject c{ Linear::Vector3D{0.5f, 0.f, 6.f}, Linear::Vector3D{1.f, 1.f, 1.f}, Entity::Rotation{100.f, 80.f, 0.f } };
 
-		//RenderTools::drawInterpolatedTri(graphics, Geometry::Triangle{
-		//	Geometry::VertexData{
-		//		Linear::Vector3D{0.f, 0.f, 0.f},
-		//		1.f,
-		//		Utils::Color{0xFF0000FF}
-		//	},
-		//	Geometry::VertexData{
-		//		Linear::Vector3D{0.f, 500.f, 0.f},
-		//		1.f,
-		//		Utils::Color{0x00FF00FF}
-		//	},
-		//	Geometry::VertexData{
-		//		Linear::Vector3D{500.f, 500.f, 0.f},
-		//		1.f,
-		//		Utils::Color{0x0000FFFF}
-		//	}
-		//});
+		/*RenderTools::drawInterpolatedTri(graphics, Geometry::Triangle{
+			Geometry::VertexData{
+				Linear::Vector3D{200.f, 0.f, 0.f},
+				1.f,
+				Utils::Color{0xFF0000FF}
+			},
+			Geometry::VertexData{
+				Linear::Vector3D{700.f, 0.f, 0.f},
+				1.f,
+				Utils::Color{0x00FF00FF}
+			},
+			Geometry::VertexData{
+				Linear::Vector3D{200.f, 500.f, 0.f},
+				1.f,
+				Utils::Color{0x0000FFFF}
+			}
+		});*/
 
 		Entity::renderEntity(camera, model, a, graphics);
 		Entity::renderEntity(camera, model, b, graphics);

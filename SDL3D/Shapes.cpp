@@ -127,9 +127,14 @@ namespace RenderTools {
 		std::vector<Utils::Color> c12{ Math::interpolateColor(static_cast<int>(p1->coord.y), p1->color, static_cast<int>(p2->coord.y), p2->color) };
 		std::vector<Utils::Color> c02{ Math::interpolateColor(static_cast<int>(p0->coord.y), p0->color, static_cast<int>(p2->coord.y), p2->color) };
 
+		/*Z interpolation*/
+		std::vector<float> z01{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->zBeforeProj, static_cast<int>(p1->coord.y), p1->zBeforeProj) };
+		std::vector<float> z12{ Math::interpolateFloat(static_cast<int>(p1->coord.y), p1->zBeforeProj, static_cast<int>(p2->coord.y), p2->zBeforeProj) };
+		std::vector<float> z02{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->zBeforeProj, static_cast<int>(p2->coord.y), p2->zBeforeProj) };
 
 		concat(p01, p12);
 		concat(c01, c12);
+		concat(z01, z12);
 
 		int midpoint{ static_cast<int>(std::floorf(p01.size() / 2.f)) };
 
@@ -139,12 +144,18 @@ namespace RenderTools {
 		std::vector<Utils::Color> leftC;
 		std::vector<Utils::Color> rightC;
 
+		std::vector<float> leftZ;
+		std::vector<float> rightZ;
+
 		if (p01[midpoint] > p02[midpoint]) {
 			leftP = p02;
 			leftC = c02;
 
 			rightP = p01;
 			rightC = c01;
+
+			leftZ = z02;
+			rightZ = z01;
 		}
 		else {
 			leftP = p01;
@@ -152,6 +163,9 @@ namespace RenderTools {
 
 			rightP = p02;
 			rightC = c02;
+
+			leftZ = z01;
+			rightZ = z02;
 		}
 
 		int endY{ static_cast<int>(p2->coord.y) };
@@ -163,9 +177,10 @@ namespace RenderTools {
 			int startX{ leftP[currY] };
 
 			std::vector<Utils::Color> interpolatedColVals{ Math::interpolateColor(startX, leftC[currY], endX, rightC[currY]) };
+			std::vector<float> interpolatedZ{ Math::interpolateFloat(startX, leftZ[currY], endX, rightZ[currY])};
 
 			for (int x{startX}; x <= endX; ++x) {
-				renderer.putPixel(x, y, interpolatedColVals[x - startX].colorVal);
+				renderer.putPixel(x, y, interpolatedColVals[x - startX].colorVal, interpolatedZ[x - startX]);
 			}
 		}
 
@@ -181,14 +196,14 @@ namespace RenderTools {
 		std::swap(p0, min(min(p0, p1), p2)); std::swap(p1, min(p1, p2));
 
 		std::vector<int> x01{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p1->coord.y), p1->coord.x) };
-		std::vector<float> h01{ Math::interpolateFloat(p0->coord.y, p0->h, p1->coord.y, p1->h) };
+		std::vector<float> h01{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->h, static_cast<int>(p1->coord.y), p1->h) };
 
 
 		std::vector<int> x12{ Math::interpolateInt(static_cast<int>(p1->coord.y), p1->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
-		std::vector<float> h12{ Math::interpolateFloat(p1->coord.y, p1->h, p2->coord.y, p2->h) };
+		std::vector<float> h12{ Math::interpolateFloat(static_cast<int>(p1->coord.y), p1->h, static_cast<int>(p2->coord.y), p2->h) };
 
 		std::vector<int> x02{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
-		std::vector<float> h02{ Math::interpolateFloat(p0->coord.y, p0->h, p2->coord.y, p2->h) };
+		std::vector<float> h02{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->h, static_cast<int>(p2->coord.y), p2->h) };
 
 
 		concat(x01, x12);
@@ -232,7 +247,7 @@ namespace RenderTools {
 
 			
 			std::vector<float> hInterpolated { 
-				Math::interpolateFloat(static_cast<float>(xStart), h_left[y-yStart], static_cast<float>(xEnd), h_right[y-yStart]) 
+				Math::interpolateFloat(static_cast<int>(xStart), h_left[y-yStart], static_cast<int>(xEnd), h_right[y-yStart]) 
 			};
 
 			for (int x{ xStart }; x < xEnd; ++x) {

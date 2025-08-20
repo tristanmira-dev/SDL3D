@@ -51,7 +51,7 @@ namespace Entity {
 		Linear::Vector3D screenSpaceTrans{ width, height, 0.f };
 
 		for (Geometry::Triangle& triangle : model.getTriContainer()) {
-
+			
 
 			Geometry::Triangle newTri{
 				Geometry::VertexData {
@@ -65,8 +65,17 @@ namespace Entity {
 				}
 			};
 
-
 			Geometry::transformVertices(finalTrans, newTri.vertices);
+
+			/*BACKFACE CULLING*/
+			Linear::Vector3D normalVec{
+				(newTri.vertices[1].coord - newTri.vertices[0].coord).cross(newTri.vertices[2].coord - newTri.vertices[0].coord)
+			};
+			float test{ newTri.vertices[0].coord.dot(normalVec) };
+			if (newTri.vertices[0].coord.dot(normalVec) >= 0.f) {
+				continue;
+			}
+			/*---------------*/
 
 			std::list<Geometry::Triangle> listTris{newTri};
 			int newTriCount{ 1 };
@@ -98,9 +107,9 @@ namespace Entity {
 
 			
 			for (Geometry::Triangle& triToRender : listTris) {
-				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov), 1.f,triToRender.vertices[0].color } ,
-					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[1].color  } ,
-					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[2].color }
+				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov), 1.f,triToRender.vertices[0].color, 1/triToRender.vertices[0].coord.z  } ,
+					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[1].color, 1/triToRender.vertices[1].coord.z } ,
+					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[2].color, 1/triToRender.vertices[2].coord.z }
 				};
 				
 

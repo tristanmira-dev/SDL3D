@@ -26,9 +26,6 @@ namespace Utils {
 			Uint32 greenBits;
 			Uint32 alphaBits;
 
-
-
-
 	};
 }
 

@@ -14,8 +14,12 @@ namespace RenderTools {
 		int getHeight() const;
 		int getWidth() const;
 		void putPixel(int x, int y, Uint32 pixelValue);
+		void putPixel(int x, int y, Uint32 pixelValue, float zVal);
 		void clearPixelBuff(Uint32 const& clearColor); /*CALL BEFORE MODIFYING AND DRAWING SDL PIXEL TEXTURE*/
 		void drawFromPixelBuff();
+		void zBufferSet(int x, int y, float val);
+		void resetZBuffer();
+
 	private:
 		int width;
 		int height;
@@ -23,6 +27,7 @@ namespace RenderTools {
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 		SDL_Texture* pixelTexture; //Actual texture for raw pixel buffer to be drawn to
+		float* zBuffer;
 
 	};
 
