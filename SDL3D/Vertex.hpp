@@ -14,13 +14,18 @@ namespace Geometry {
 		Linear::Vector3D coord;
 		Utils::Color color;
 		float h;
+		Linear::Vector3D uv;
 		float zBeforeProj;
 		//VertexData() = default;
-		VertexData(Linear::Vector3D const& coord = Linear::Vector3D{}, 
+		VertexData(
+
+			Linear::Vector3D const& coord = Linear::Vector3D{}, 
 			float const &h = 1.f, 
 			Utils::Color const &color = Utils::Color{ 0 },
+			Linear::Vector3D uv = Linear::Vector3D{},
 			float z = 0.f
-		) : coord{ coord }, h{ h }, color{ color }, zBeforeProj{z} {}
+
+		) : coord{ coord }, h{ h }, color{ color }, uv{ uv }, zBeforeProj{ z } {}
 	};
 
 	using Vertices = std::array<VertexData, 3>;

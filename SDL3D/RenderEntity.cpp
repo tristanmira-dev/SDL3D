@@ -5,18 +5,19 @@
 #include "Graphics.hpp"
 #include "Camera.hpp"
 #include "Plane.hpp"
+#include "Texture.hpp"
 
 #include <iostream>
 #include <list>
 #include <array>
 
 namespace Entity {
-	void renderEntity(Camera& camera, Model& model, GameObject& obj, RenderTools::Graphics& renderer) {
+	void renderEntity(Camera& camera, Model& model, GameObject& obj, RenderTools::Graphics& renderer, Entity::Texture &tex) {
 
 		Linear::PlaneCollection planes;
 
 		float distance{ 1.f };
-		float fov{ 120.f };
+		float fov{ 60.f };
 		Linear::setPlanes(distance, fov, planes);
 
 
@@ -107,9 +108,9 @@ namespace Entity {
 
 			
 			for (Geometry::Triangle& triToRender : listTris) {
-				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov), 1.f,triToRender.vertices[0].color, 1/triToRender.vertices[0].coord.z  } ,
-					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[1].color, 1/triToRender.vertices[1].coord.z } ,
-					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[2].color, 1/triToRender.vertices[2].coord.z }
+				Geometry::Triangle projected{ Geometry::VertexData{triToRender.vertices[0].coord.project(renderer, distance, fov), 1.f,triToRender.vertices[0].color, triToRender.vertices[0].uv ,1/triToRender.vertices[0].coord.z  } ,
+					Geometry::VertexData{triToRender.vertices[1].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[1].color,triToRender.vertices[1].uv ,1/triToRender.vertices[1].coord.z } ,
+					Geometry::VertexData{triToRender.vertices[2].coord.project(renderer, distance, fov), 1.f, triToRender.vertices[2].color, triToRender.vertices[2].uv ,1/triToRender.vertices[2].coord.z }
 				};
 				
 
@@ -118,7 +119,7 @@ namespace Entity {
 				projected.vertices[1].coord += screenSpaceTrans;
 				projected.vertices[2].coord += screenSpaceTrans;
 
-				RenderTools::drawInterpolatedTri(renderer, projected);
+				RenderTools::drawTriTexture(renderer, projected, tex);
 
 			}
 

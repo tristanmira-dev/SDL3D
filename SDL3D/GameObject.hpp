@@ -13,6 +13,9 @@ namespace Entity {
 		public:
 			Linear::Vector3D getPosition();
 			Linear::Vector3D getSize();
+			void setX(float x);
+			void setY(float y);
+			void setZ(float z);
 			Rotation getRotation();
 			GameObject(Linear::Vector3D const& pos, Linear::Vector3D const& size, Rotation const& rotation = Rotation{});
 		protected:

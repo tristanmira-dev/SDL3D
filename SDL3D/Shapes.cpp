@@ -63,6 +63,10 @@ namespace RenderTools {
 
 
 	}
+
+
+
+
 	void drawWireFrameTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const& triangle, Uint32 const &color) {
 		drawLine(renderer, triangle.vertices[0].coord, triangle.vertices[1].coord, color);
 		drawLine(renderer, triangle.vertices[1].coord, triangle.vertices[2].coord, color);
@@ -183,6 +187,93 @@ namespace RenderTools {
 				renderer.putPixel(x, y, interpolatedColVals[x - startX].colorVal, interpolatedZ[x - startX]);
 			}
 		}
+
+	}
+
+	void drawTriTexture(RenderTools::Graphics& renderer, Geometry::Triangle const& tri, Entity::Texture& tex) {
+		Geometry::VertexData const* p0{ &tri.vertices[0] };
+		Geometry::VertexData const* p1{ &tri.vertices[1] };
+		Geometry::VertexData const* p2{ &tri.vertices[2] };
+
+		std::swap(p0, min(min(p0, p1), p2)); std::swap(p1, min(p1, p2));
+
+		/*Coord interpolation*/
+		std::vector<int> p01{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p1->coord.y), p1->coord.x) };
+		std::vector<int> p12{ Math::interpolateInt(static_cast<int>(p1->coord.y), p1->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
+		std::vector<int> p02{ Math::interpolateInt(static_cast<int>(p0->coord.y), p0->coord.x, static_cast<int>(p2->coord.y), p2->coord.x) };
+
+		/*Texture interpolation*/
+		std::vector<float> c01{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->uv.x, static_cast<int>(p1->coord.y), p1->uv.x) };
+		std::vector<float> c12{ Math::interpolateFloat(static_cast<int>(p1->coord.y), p1->uv.x, static_cast<int>(p2->coord.y), p2->uv.x) };
+		std::vector<float> c02{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->uv.x, static_cast<int>(p2->coord.y), p2->uv.x) };
+
+		std::vector<float> tY{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->uv.y, static_cast<int>(p2->coord.y), p2->uv.y) };
+
+		/*Z interpolation*/
+		std::vector<float> z01{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->zBeforeProj, static_cast<int>(p1->coord.y), p1->zBeforeProj) };
+		std::vector<float> z12{ Math::interpolateFloat(static_cast<int>(p1->coord.y), p1->zBeforeProj, static_cast<int>(p2->coord.y), p2->zBeforeProj) };
+		std::vector<float> z02{ Math::interpolateFloat(static_cast<int>(p0->coord.y), p0->zBeforeProj, static_cast<int>(p2->coord.y), p2->zBeforeProj) };
+
+		concat(p01, p12);
+		concat(c01, c12);
+		concat(z01, z12);
+
+		int midpoint{ static_cast<int>(std::floorf(p01.size() / 2.f)) };
+
+		std::vector<int> leftP;
+		std::vector<int> rightP;
+
+		std::vector<float> leftC;
+		std::vector<float> rightC;
+
+		std::vector<float> leftZ;
+		std::vector<float> rightZ;
+
+		if (p01[midpoint] > p02[midpoint]) {
+			leftP = p02;
+			leftC = c02;
+
+			rightP = p01;
+			rightC = c01;
+
+			leftZ = z02;
+			rightZ = z01;
+		}
+		else {
+			leftP = p01;
+			leftC = c01;
+
+			rightP = p02;
+			rightC = c02;
+
+			leftZ = z01;
+			rightZ = z02;
+		}
+
+		int endY{ static_cast<int>(p2->coord.y) };
+		for (int y{ static_cast<int>(p0->coord.y) }; y <= endY; ++y) {
+
+			int currY{ y - static_cast<int>(p0->coord.y) };
+
+			int endX{ rightP[currY] };
+			int startX{ leftP[currY] };
+
+			std::vector<float> interpolateduvVals{ Math::interpolateFloat(startX, leftC[currY], endX, rightC[currY]) };
+			std::vector<float> interpolatedZ{ Math::interpolateFloat(startX, leftZ[currY], endX, rightZ[currY]) };
+
+			int texYCoord{ static_cast<int>(tY[currY] * 600) };
+
+
+			for (int x{ startX }; x <= endX; ++x) {
+				renderer.putPixel(x, y, tex.getPixel(static_cast<Sint16>(interpolateduvVals[x - startX] * tex.getWidth() ), static_cast<Sint16>(texYCoord)), interpolatedZ[x - startX]);
+			}
+		}
+
+
+
+
+
+
 
 	}
 

@@ -6,6 +6,7 @@
 #include "Graphics.hpp"
 #include "Vertex.hpp"
 #include "Color.hpp"
+#include "Texture.hpp"
 
 namespace RenderTools {
 	void drawLine(RenderTools::Graphics &renderer, Linear::Vector2D const &p0, Linear::Vector2D const &p1, Uint32 const& color);
@@ -15,6 +16,7 @@ namespace RenderTools {
 	void drawTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const &tri, Utils::Color const& color);
 	void drawShadedTriangle(RenderTools::Graphics& renderer, Geometry::Triangle const& tri, Utils::Color const& color);
 	void drawInterpolatedTri(RenderTools::Graphics& renderer, Geometry::Triangle const& tri);
+	void drawTriTexture(RenderTools::Graphics& renderer, Geometry::Triangle const& tri, Entity::Texture& tex);
 }
 
 
